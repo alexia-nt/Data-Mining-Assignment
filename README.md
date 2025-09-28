@@ -2,6 +2,10 @@
 
 This project implements several machine learning models for classifying hotel reviews as **truthful** or **deceptive**, based on [this dataset](https://myleott.com/op-spam.html).
 
+## Requirements
+- Python 3.11 or later
+- Packages listed in requirements.txt
+
 ## Setup
 
 1. **Clone the repository**
