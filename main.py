@@ -1,7 +1,40 @@
 import pandas as pd
+import string
+import nltk
+import re
+from nltk.tokenize import word_tokenize
+from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
+for pkg in ("stopwords", "wordnet", "punkt", "punkt_tab"):
+    nltk.download(pkg, quiet=True)
+
+nltk.download('stopwords')
+nltk.download('wordnet')
+nltk.download('punkt')
+stop_words = set(stopwords.words('english'))
+
+translator = str.maketrans ("", "", string.punctuation)
+
+lemmatizer = WordNetLemmatizer()
+train_df = pd.read_pickle("data/train.pkl")
+test_df = pd.read_pickle("data/test.pkl")
+
+
+
+def processeddata(text):
+    text = text.lower() # lowercasing
+    text = str(text).strip() # removing white spaces
+    text = text.translate(translator) #removing punctuation
+    tokens = word_tokenize(text) #tokenize
+    tokens =[w for w in tokens if w not in stop_words] #remove stopwords (unimportant words)
+    tokens = [lemmatizer.lemmatize(w) for w in tokens]  #makes dogs into dog and running into ran etc
+    return " ".join(tokens)
 
 train_df = pd.read_pickle("data/train.pkl")
 test_df = pd.read_pickle("data/test.pkl")
 
-print(f"Train set: {len(train_df)} samples")
-print(train_df.head())
+
+train_df["text"] = train_df["text"].astype(str).apply(processeddata)
+test_df["text"]  = test_df["text"].astype(str).apply(processeddata)
+
+print(train_df)
