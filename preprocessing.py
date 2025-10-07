@@ -6,6 +6,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
+import os
 
 for pkg in ("stopwords", "wordnet", "punkt", "punkt_tab"):
     nltk.download(pkg, quiet=True)
@@ -38,6 +39,11 @@ test_df = pd.read_pickle("data/test.pkl")
 
 train_df["text"] = train_df["text"].astype(str).apply(processeddata)
 test_df["text"]  = test_df["text"].astype(str).apply(processeddata)
+
+# Save preprocessed data
+train_df.to_pickle("data/train_preprocessed.pkl")
+test_df.to_pickle("data/test_preprocessed.pkl")
+
 vectorizer = TfidfVectorizer()
 
 X_train = vectorizer.fit_transform(train_df["text"])

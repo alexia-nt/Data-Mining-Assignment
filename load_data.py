@@ -31,8 +31,8 @@ def read_opspam(data_dir: str, subset: str = "negative") -> pd.DataFrame:
     rows = []
 
     for label_name, label in [
-        ("deceptive_from_MTurk", "d"),
-        ("truthful_from_Web" if subset == "negative" else "truthful_from_TripAdvisor", "t"),
+        ("deceptive_from_MTurk", "Deceptive"),
+        ("truthful_from_Web" if subset == "negative" else "truthful_from_TripAdvisor", "Truthful"),
     ]:
         label_dir = os.path.join(subset_dir, label_name)
 
@@ -45,7 +45,7 @@ def read_opspam(data_dir: str, subset: str = "negative") -> pd.DataFrame:
 
                 rows.append({
                     "text": text,
-                    "label": label,     # 't' or 'd'
+                    "label": label,     # 'Truthful' or 'Deceptive'
                     "polarity": subset, # 'negative' or 'positive'
                     "fold": fold
                 })
@@ -65,6 +65,7 @@ def make_train_test(df: pd.DataFrame, test_fold: str = "fold5"):
     test = df[df["fold"] == test_fold].reset_index(drop=True)
 
     return train, test
+
 
 if __name__ == "__main__":
     DATA_DIR = "op_spam_v1.4"
