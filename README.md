@@ -54,7 +54,7 @@ Run `preprocessing.py`:
 - Saves preprocessed data as `train_preprocessed.pkl` and `test_preprocessed.pkl`
 
 ### 3. Experimentation and model training
-Run `baive_bayes.py`, `logistic_regression.py`, `classification_tree.py`, `random_forest.py`, `gradient_boosting.py`:
+Run `naive_bayes.py`, `logistic_regression.py`, `classification_tree.py`, `random_forest.py`, `gradient_boosting.py`:
 - Each script:
   - Loads `train_preprocessed.pkl`
   - Performs TF-IDF vectorization (unigrams / bigrams)
