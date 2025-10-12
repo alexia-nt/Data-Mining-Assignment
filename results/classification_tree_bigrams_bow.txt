@@ -1,0 +1,13 @@
+Best params: {'bow__max_features': 5000, 'bow__ngram_range': (1, 2), 'dt__ccp_alpha': 0.01, 'dt__max_depth': 10, 'dt__min_samples_leaf': 5, 'dt__min_samples_split': 2}
+Best CV accuracy: 0.6922
+Test accuracy: 0.6625
+
+Classification Report:
+              precision    recall  f1-score   support
+
+   Deceptive       0.70      0.57      0.63        80
+    Truthful       0.64      0.75      0.69        80
+
+    accuracy                           0.66       160
+   macro avg       0.67      0.66      0.66       160
+weighted avg       0.67      0.66      0.66       160

@@ -1,0 +1,13 @@
+Best C: 1.0
+Mean CV accuracy: 0.7953
+Test accuracy: 0.8063
+
+Classification Report:
+              precision    recall  f1-score   support
+
+   Deceptive       0.81      0.80      0.81        80
+    Truthful       0.80      0.81      0.81        80
+
+    accuracy                           0.81       160
+   macro avg       0.81      0.81      0.81       160
+weighted avg       0.81      0.81      0.81       160
