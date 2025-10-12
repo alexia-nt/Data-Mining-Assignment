@@ -11,3 +11,6 @@ Classification Report:
     accuracy                           0.74       160
    macro avg       0.75      0.74      0.74       160
 weighted avg       0.75      0.74      0.74       160
+
+Top 10 most important features:
+chicago, decided, location, smell, room, finally, turned, seemed, luxury, many

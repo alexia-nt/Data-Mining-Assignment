@@ -11,3 +11,6 @@ Classification Report:
     accuracy                           0.82       160
    macro avg       0.83      0.82      0.82       160
 weighted avg       0.83      0.82      0.82       160
+
+Top 10 most important features:
+chicago, location, hotel chicago, smell, luxury, finally, chicago hotel, seemed, decided, recently

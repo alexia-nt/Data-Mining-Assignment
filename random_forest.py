@@ -9,8 +9,10 @@ import numpy as np
 
 RESULTS_DIR = "results"
 RESULTS_EXTRA_DIR = "results_extra"
+CONF_MATRIX_DIR = "confusion_matrices"
 os.makedirs(RESULTS_DIR, exist_ok=True)
 os.makedirs(RESULTS_EXTRA_DIR, exist_ok=True)
+os.makedirs(CONF_MATRIX_DIR, exist_ok=True)
 
 train_df = pd.read_pickle("data/train_preprocessed.pkl")
 test_df = pd.read_pickle("data/test_preprocessed.pkl")
@@ -30,21 +32,13 @@ for ngram_range in ngram_ranges:
         ('rf', RandomForestClassifier(random_state=42))
     ])
     
-    # param_grid = {
-    #     'vec__ngram_range': [ngram_range],
-    #     'vec__max_features': [3000, 5000],
-    #     'rf__n_estimators': [100, 200],
-    #     'rf__max_depth': [None, 10, 20],
-    #     'rf__min_samples_split': [2, 5],
-    #     'rf__min_samples_leaf': [1, 2]
-    # }
     param_grid = {
         'vec__ngram_range': [ngram_range],
-        'vec__max_features': [5000],
+        'vec__max_features': [3000, 5000],
         'rf__n_estimators': [100, 200],
-        'rf__max_depth': [None, 10],
-        'rf__min_samples_split': [5],
-        'rf__min_samples_leaf': [2]
+        'rf__max_depth': [None, 10, 20],
+        'rf__min_samples_split': [2, 5],
+        'rf__min_samples_leaf': [1, 2]
     }
     
     grid_search = GridSearchCV(pipeline, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
@@ -70,19 +64,18 @@ for ngram_range in ngram_ranges:
     
     cm = confusion_matrix(y_test, y_pred, labels=["Deceptive", "Truthful"])
     cm_file = f"confusion_matrix_rf_{'unigrams' if ngram_range==(1,1) else 'bigrams'}.npy"
-    np.save(os.path.join(RESULTS_EXTRA_DIR, cm_file), cm)
+    np.save(os.path.join(CONF_MATRIX_DIR, cm_file), cm)
     
     # Optional: plot
     disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Deceptive", "Truthful"])
     disp.plot(cmap="Blues")
     plt.title(f"RF Confusion Matrix ({'unigrams' if ngram_range==(1,1) else 'bigrams'})")
-    plt.savefig(os.path.join(RESULTS_EXTRA_DIR, f"confusion_matrix_rf_{'unigrams' if ngram_range==(1,1) else 'bigrams'}.png"))
+    plt.savefig(os.path.join(CONF_MATRIX_DIR, f"confusion_matrix_rf_{'unigrams' if ngram_range==(1,1) else 'bigrams'}.png"))
     plt.close()
     
     # Save classification report and accuracy
-    file_name = f"test_random_forest_{'unigrams' if ngram_range==(1,1) else 'bigrams'}_tfidf.txt"
+    file_name = f"random_forest_{'unigrams' if ngram_range==(1,1) else 'bigrams'}_tfidf.txt"
     file_path = os.path.join(RESULTS_DIR, file_name)
-    # with open(os.path.join(RESULTS_DIR, file_name), "w") as f:
     with open(file_path, "w") as f:
         f.write(f"Best params: {grid_search.best_params_}\n")
         f.write(f"Best CV accuracy: {grid_search.best_score_:.4f}\n")
