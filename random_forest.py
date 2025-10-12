@@ -81,7 +81,9 @@ for ngram_range in ngram_ranges:
     
     # Save classification report and accuracy
     file_name = f"test_random_forest_{'unigrams' if ngram_range==(1,1) else 'bigrams'}_tfidf.txt"
-    with open(os.path.join(RESULTS_DIR, file_name), "w") as f:
+    file_path = os.path.join(RESULTS_DIR, file_name)
+    # with open(os.path.join(RESULTS_DIR, file_name), "w") as f:
+    with open(file_path, "w") as f:
         f.write(f"Best params: {grid_search.best_params_}\n")
         f.write(f"Best CV accuracy: {grid_search.best_score_:.4f}\n")
         f.write(f"Test accuracy: {test_acc:.4f}\n")
@@ -89,3 +91,21 @@ for ngram_range in ngram_ranges:
         f.write(class_report)
 
     print(f"Results saved to {file_name}, predictions and confusion matrix saved.")
+
+    # Extract feature names and importance
+    vec = best_pipeline.named_steps['vec']
+    clf = best_pipeline.named_steps['rf']
+
+    feature_names = vec.get_feature_names_out()
+    importances = clf.feature_importances_
+
+    # Sort features by importance (descending)
+    top_idx = np.argsort(importances)[::-1]
+    top_features = feature_names[top_idx][:10]  # top 10 features overall
+
+    print("Top 10 most important features:", top_features)
+
+    # Save to the same txt file
+    with open(file_path, "a") as f:
+        f.write("\nTop 10 most important features:\n")
+        f.write(", ".join(top_features) + "\n")

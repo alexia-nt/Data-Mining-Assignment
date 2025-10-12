@@ -93,3 +93,21 @@ for ngram_range in ngram_ranges:
         f.write(class_report)
 
     print(f"Results saved to {file_name}, predictions and confusion matrix saved.")
+
+    # Extract feature names and importance
+    vec = best_pipeline.named_steps['tfidf']
+    clf = best_pipeline.named_steps['gb']
+
+    feature_names = vec.get_feature_names_out()
+    importances = clf.feature_importances_
+
+    # Sort features by importance
+    top_idx = np.argsort(importances)[::-1]  # descending
+    top_features = feature_names[top_idx][:10]  # top 10 most important features
+
+    print("Top 10 most important features:", top_features)
+
+    # Save to the same txt file
+    with open(file_path, "a") as f:
+        f.write("\nTop 10 most important features:\n")
+        f.write(", ".join(top_features) + "\n")
