@@ -50,7 +50,7 @@ for ngram_range in ngram_ranges:
     print(class_report)
     
     # Save results
-    file_name = f"random_forest_{'unigrams' if ngram_range==(1,1) else 'bigrams'}.txt"
+    file_name = f"random_forest_{'unigrams' if ngram_range==(1,1) else 'bigrams'}_tfidf.txt"
     with open(os.path.join(RESULTS_DIR, file_name), "w") as f:
         f.write(f"Best params: {grid_search.best_params_}\n")
         f.write(f"Best CV accuracy: {grid_search.best_score_:.4f}\n")

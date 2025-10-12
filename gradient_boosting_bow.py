@@ -53,7 +53,7 @@ for ngram_range in ngram_ranges:
     print(class_report)
 
     # Save results to file
-    file_name = f"gradient_boosting_bow_{'unigrams' if ngram_range==(1,1) else 'bigrams'}.txt"
+    file_name = f"gradient_boosting_{'unigrams' if ngram_range==(1,1) else 'bigrams'}_bow.txt"
     file_path = os.path.join(RESULTS_DIR, file_name)
     with open(file_path, "w") as f:
         f.write(f"Best params: {grid_search.best_params_}\n")
