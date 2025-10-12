@@ -23,8 +23,8 @@ y_train = train_df["label"]
 X_test = test_df["text"]
 y_test = test_df["label"]
 
-# Save true labels (once)
-y_test.to_pickle(os.path.join(RESULTS_EXTRA_DIR, "y_test.pkl"))
+# # Save true labels (once)
+# y_test.to_pickle(os.path.join(RESULTS_EXTRA_DIR, "y_test.pkl"))
 
 # Compare different n-gram ranges
 ngram_ranges = [(1, 1), (1, 2)]
