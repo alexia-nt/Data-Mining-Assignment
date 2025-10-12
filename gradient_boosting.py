@@ -26,16 +26,6 @@ ngram_ranges = [(1, 1), (1, 2)]
 
 for ngram_range in ngram_ranges:
     print(f"\n------------ Testing ngram_range={ngram_range} ------------")
-    
-    # pipeline = Pipeline([
-    #     ('tfidf', TfidfVectorizer(max_features=5000, ngram_range=ngram_range)),
-    #     ('gb', GradientBoostingClassifier(n_estimators=100, random_state=42))
-    # ])
-    
-    # cv_scores = cross_val_score(pipeline, X_train, y_train, 
-    #                            cv=5, scoring='accuracy', n_jobs=-1)
-    
-    # print(f"Mean CV accuracy: {cv_scores.mean():.4f}")
 
     pipeline = Pipeline([
         ('tfidf', TfidfVectorizer()),
