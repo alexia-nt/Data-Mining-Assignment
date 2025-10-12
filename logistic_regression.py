@@ -85,13 +85,19 @@ for ngram_range in ngram_ranges:
     lr = pipeline.named_steps['lr']
 
     feature_names = np.array(vec.get_feature_names_out())
-
     coefs = lr.coef_.ravel()
-    classes = lr.classes_
+    pos_class = lr.classes_[1]
 
     # Top 5 terms for fake (negative weights) and genuine (positive weights)
-    top_fake_idx = np.argsort(coefs)[-5:][::-1]       # most negative
-    top_genuine_idx = np.argsort(coefs)[:5]     # most positive
+    top_pos_idx = np.argsort(coefs)[-5:][::-1]
+    top_neg_idx = np.argsort(coefs)[:5]
+
+    if pos_class == "Deceptive":
+        top_fake_idx = top_pos_idx
+        top_genuine_idx = top_neg_idx
+    else:
+        top_fake_idx = top_neg_idx
+        top_genuine_idx = top_pos_idx
 
     print("the five most important terms pointing towards a fake review")
     for i in top_fake_idx:
