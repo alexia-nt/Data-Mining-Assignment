@@ -11,14 +11,16 @@ Classification Report:
    macro avg       0.81      0.81      0.81       160
 weighted avg       0.81      0.81      0.81       160
 
-Top 10 most important features (by |weight|):
-chicago: -52.6544
-star: 32.1791
-smelled: -28.5012
-turned: -28.2932
-recently: -26.8151
-adult: 25.5095
-relax: -25.4186
-world: 25.2989
-clothing: 24.5754
-finally: -24.4369
+The five most important terms pointing towards a fake review:
+- star: 32.1791
+- adult: 25.5095
+- world: 25.2989
+- clothing: 24.5754
+- location: 21.2477
+
+The five most important terms pointing towards a genuine review:
+- chicago: -52.6544
+- smelled: -28.5012
+- turned: -28.2932
+- recently: -26.8151
+- relax: -25.4186
