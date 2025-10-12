@@ -1,0 +1,13 @@
+Best params: {'rf__max_depth': 20, 'rf__min_samples_leaf': 2, 'rf__min_samples_split': 2, 'rf__n_estimators': 200, 'vec__max_features': 3000, 'vec__ngram_range': (1, 1)}
+Best CV accuracy: 0.8469
+Test accuracy: 0.8250
+
+Classification Report:
+              precision    recall  f1-score   support
+
+   Deceptive       0.86      0.78      0.82        80
+    Truthful       0.80      0.88      0.83        80
+
+    accuracy                           0.82       160
+   macro avg       0.83      0.82      0.82       160
+weighted avg       0.83      0.82      0.82       160
