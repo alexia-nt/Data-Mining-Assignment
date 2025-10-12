@@ -1,0 +1,13 @@
+Best params: {'gb__learning_rate': 0.1, 'gb__max_depth': 3, 'gb__n_estimators': 200, 'tfidf__max_features': 5000, 'tfidf__ngram_range': (1, 2)}
+Best CV accuracy: 0.7859
+Test set accuracy: 0.7937
+
+Classification Report:
+              precision    recall  f1-score   support
+
+   Deceptive       0.82      0.75      0.78        80
+    Truthful       0.77      0.84      0.80        80
+
+    accuracy                           0.79       160
+   macro avg       0.80      0.79      0.79       160
+weighted avg       0.80      0.79      0.79       160
