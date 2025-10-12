@@ -12,15 +12,15 @@ Classification Report:
 weighted avg       0.81      0.81      0.81       160
 
 The five most important terms pointing towards a fake review:
-- star: 34.7362
-- booked hotel: 33.8177
-- bring: 29.5979
-- adult: 27.8939
-- street: 24.8522
-
-The five most important terms pointing towards a genuine review:
 - chicago: -44.1418
 - relax: -35.8648
 - homewood suite: -34.0342
 - turned: -28.9818
 - hotel chicago: -28.7731
+
+The five most important terms pointing towards a genuine review:
+- star: 34.7362
+- booked hotel: 33.8177
+- bring: 29.5979
+- adult: 27.8939
+- street: 24.8522
