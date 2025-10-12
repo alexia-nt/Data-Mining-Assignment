@@ -1,25 +1,30 @@
 import os
 import pandas as pd
+import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import GradientBoostingClassifier
-from sklearn.model_selection import cross_val_score, StratifiedKFold
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
 from sklearn.pipeline import Pipeline
-from sklearn.preprocessing import LabelEncoder
 from sklearn.model_selection import GridSearchCV
+import matplotlib.pyplot as plt
 
 # Make results folder if it doesn't exist
 RESULTS_DIR = "results"
+RESULTS_EXTRA_DIR = "results_extra"
 os.makedirs(RESULTS_DIR, exist_ok=True)
+os.makedirs(RESULTS_EXTRA_DIR, exist_ok=True)
 
+# Load data
 train_df = pd.read_pickle("data/train_preprocessed.pkl")
 test_df = pd.read_pickle("data/test_preprocessed.pkl")
 
-# Prepare features and labels
 X_train = train_df["text"]
 y_train = train_df["label"]
 X_test = test_df["text"]
 y_test = test_df["label"]
+
+# Save true labels (once)
+y_test.to_pickle(os.path.join(RESULTS_EXTRA_DIR, "y_test.pkl"))
 
 # Compare different n-gram ranges
 ngram_ranges = [(1, 1), (1, 2)]
@@ -32,12 +37,19 @@ for ngram_range in ngram_ranges:
         ('gb', GradientBoostingClassifier(random_state=42))
     ])
 
+    # param_grid = {
+    #     'tfidf__ngram_range': [ngram_range],
+    #     'tfidf__max_features': [3000, 5000],
+    #     'gb__n_estimators': [100, 200],
+    #     'gb__learning_rate': [0.05, 0.1],
+    #     'gb__max_depth': [3, 4, 5]
+    # }
     param_grid = {
         'tfidf__ngram_range': [ngram_range],
-        'tfidf__max_features': [3000, 5000],
-        'gb__n_estimators': [100, 200],
-        'gb__learning_rate': [0.05, 0.1],
-        'gb__max_depth': [3, 4, 5]
+        'tfidf__max_features': [3000],
+        'gb__n_estimators': [100],
+        'gb__learning_rate': [0.1],
+        'gb__max_depth': [3, 4]
     }
 
     grid_search = GridSearchCV(pipeline, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
@@ -54,8 +66,24 @@ for ngram_range in ngram_ranges:
     print("\n=== Classification Report ===")
     print(class_report)
 
-    # Save results to file
-    file_name = f"gradient_boosting_{'unigrams' if ngram_range==(1,1) else 'bigrams'}_tfidf.txt"
+    # Save predictions
+    pred_file = f"y_pred_gb_{'unigrams' if ngram_range==(1,1) else 'bigrams'}.npy"
+    np.save(os.path.join(RESULTS_EXTRA_DIR, pred_file), y_pred)
+
+    # Save confusion matrix
+    cm = confusion_matrix(y_test, y_pred, labels=["Deceptive", "Truthful"])
+    cm_file = f"confusion_matrix_gb_{'unigrams' if ngram_range==(1,1) else 'bigrams'}.npy"
+    np.save(os.path.join(RESULTS_EXTRA_DIR, cm_file), cm)
+
+    # Optional: save confusion matrix plot
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Deceptive", "Truthful"])
+    disp.plot(cmap="Blues")
+    plt.title(f"GB Confusion Matrix ({'unigrams' if ngram_range==(1,1) else 'bigrams'})")
+    plt.savefig(os.path.join(RESULTS_EXTRA_DIR, f"confusion_matrix_gb_{'unigrams' if ngram_range==(1,1) else 'bigrams'}.png"))
+    plt.close()
+
+    # Save classification report and accuracy
+    file_name = f"test_gradient_boosting_{'unigrams' if ngram_range==(1,1) else 'bigrams'}_tfidf.txt"
     file_path = os.path.join(RESULTS_DIR, file_name)
     with open(file_path, "w") as f:
         f.write(f"Best params: {grid_search.best_params_}\n")
@@ -64,4 +92,4 @@ for ngram_range in ngram_ranges:
         f.write("\nClassification Report:\n")
         f.write(class_report)
 
-    print(f"Results saved to {file_name}")
+    print(f"Results saved to {file_name}, predictions and confusion matrix saved.")

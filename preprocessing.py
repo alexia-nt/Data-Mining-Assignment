@@ -44,6 +44,7 @@ test_df["text"]  = test_df["text"].astype(str).apply(processeddata)
 train_df.to_pickle("data/train_preprocessed.pkl")
 test_df.to_pickle("data/test_preprocessed.pkl")
 
+
 vectorizer = TfidfVectorizer()
 
 X_train = vectorizer.fit_transform(train_df["text"])
