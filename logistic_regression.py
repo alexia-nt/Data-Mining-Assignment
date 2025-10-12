@@ -87,19 +87,28 @@ for ngram_range in ngram_ranges:
     feature_names = np.array(vec.get_feature_names_out())
 
     coefs = lr.coef_.ravel()
-    abs_coefs = np.abs(coefs)
-    top_idx = np.argsort(abs_coefs)[::-1][:10]
-    top_features = feature_names[top_idx]
-    top_weights = coefs[top_idx]
+    classes = lr.classes_
 
-    print("Top 10 most important features:")
-    for feat, w in zip(top_features, top_weights):
-        print(f"{feat}: {w:.4f}")
+    # Top 5 terms for fake (negative weights) and genuine (positive weights)
+    top_fake_idx = np.argsort(coefs)[-5:][::-1]       # most negative
+    top_genuine_idx = np.argsort(coefs)[:5]     # most positive
+
+    print("the five most important terms pointing towards a fake review")
+    for i in top_fake_idx:
+        print(f"- {feature_names[i]}: {coefs[i]:.4f}")
+
+    print("\nthe five most important terms pointing towards a genuine review")
+    for i in top_genuine_idx:
+        print(f"- {feature_names[i]}: {coefs[i]:.4f}")
 
     # Save to text file
     with open(file_path, "a") as f:
-        f.write("\nTop 10 most important features (by |weight|):\n")
-        for feat, w in zip(top_features, top_weights):
-            f.write(f"{feat}: {w:.4f}\n")
+        f.write("\nThe five most important terms pointing towards a fake review:\n")
+        for i in top_fake_idx:
+            f.write(f"- {feature_names[i]}: {coefs[i]:.4f}\n")
+
+        f.write("\nThe five most important terms pointing towards a genuine review:\n")
+        for i in top_genuine_idx:
+            f.write(f"- {feature_names[i]}: {coefs[i]:.4f}\n")
 
     print(f"Results saved to {file_name}, predictions and confusion matrix saved.")
