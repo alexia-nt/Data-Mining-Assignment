@@ -40,12 +40,9 @@ for ngram_range in ngram_ranges:
         'tfidf__ngram_range': [ngram_range],
         'tfidf__max_features': [3000, 5000],
         'gb__n_estimators': [100, 200],
-        'gb__learning_rate': [0.05, 0.1],
+        'gb__learning_rate': [0.01, 0.05, 0.1],
         'gb__max_depth': [3, 4, 5]
     }
-
-    # max_features
-    # ccp_alpha
 
     grid_search = GridSearchCV(pipeline, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
     grid_search.fit(X_train, y_train)

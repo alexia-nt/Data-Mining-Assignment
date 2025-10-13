@@ -40,9 +40,6 @@ for ngram_range in ngram_ranges:
         'rf__min_samples_split': [2, 5],
         'rf__min_samples_leaf': [1, 2]
     }
-
-    # max_features
-    # ccp_alpha
     
     grid_search = GridSearchCV(pipeline, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
     grid_search.fit(X_train, y_train)
