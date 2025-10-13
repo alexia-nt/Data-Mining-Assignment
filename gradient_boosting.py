@@ -44,6 +44,9 @@ for ngram_range in ngram_ranges:
         'gb__max_depth': [3, 4, 5]
     }
 
+    # max_features
+    # ccp_alpha
+
     grid_search = GridSearchCV(pipeline, param_grid, cv=5, scoring='accuracy', n_jobs=-1)
     grid_search.fit(X_train, y_train)
 

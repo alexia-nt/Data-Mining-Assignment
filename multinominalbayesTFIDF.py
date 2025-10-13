@@ -1,14 +1,20 @@
 import os
 import pandas as pd
+import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.naive_bayes import MultinomialNB 
 from sklearn.model_selection import GridSearchCV
-from sklearn.metrics import classification_report, accuracy_score
+from sklearn.metrics import classification_report, accuracy_score, confusion_matrix, ConfusionMatrixDisplay
 from sklearn.pipeline import Pipeline
+import matplotlib.pyplot as plt
 
 # Make results folder if it doesn't exist
 RESULTS_DIR = "results"
+RESULTS_EXTRA_DIR = "results_extra"
+CONF_MATRIX_DIR = "confusion_matrices"
 os.makedirs(RESULTS_DIR, exist_ok=True)
+os.makedirs(RESULTS_EXTRA_DIR, exist_ok=True)
+os.makedirs(CONF_MATRIX_DIR, exist_ok=True)
 
 # Load preprocessed data
 train_df = pd.read_pickle("data/train_preprocessed.pkl")
@@ -49,6 +55,22 @@ for ngram_range in ngram_ranges:
     print(f"Test set accuracy: {test_accuracy:.4f}")
     print("\n=== Classification Report ===")
     print(class_report)
+
+    # Save predictions
+    pred_file = f"y_pred_nb_{'unigrams' if ngram_range==(1,1) else 'bigrams'}.npy"
+    np.save(os.path.join(RESULTS_EXTRA_DIR, pred_file), y_pred)
+
+    # Save confusion matrix
+    cm = confusion_matrix(y_test, y_pred, labels=["Deceptive", "Truthful"])
+    cm_file = f"confusion_matrix_nb_{'unigrams' if ngram_range==(1,1) else 'bigrams'}.npy"
+    np.save(os.path.join(CONF_MATRIX_DIR, cm_file), cm)
+
+    # Optional: save confusion matrix plot
+    disp = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=["Deceptive", "Truthful"])
+    disp.plot(cmap="Blues")
+    plt.title(f"GB Confusion Matrix ({'unigrams' if ngram_range==(1,1) else 'bigrams'})")
+    plt.savefig(os.path.join(CONF_MATRIX_DIR, f"confusion_matrix_nb_{'unigrams' if ngram_range==(1,1) else 'bigrams'}.png"))
+    plt.close()
 
     # Save results to file
     file_name = f"multinomialnb_{'unigrams' if ngram_range==(1,1) else 'bigrams'}_tfidf.txt"
