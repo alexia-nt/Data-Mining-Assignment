@@ -1,0 +1,150 @@
+
+=== 5.1 : NB vs LR (unigrams) ===
+Acc1: 0.8250 | Acc2: 0.8063
+Contingency Table:
+   a (both correct): 113
+   b (Model1 correct only): 19
+   c (Model2 correct only): 16
+   d (both wrong): 12
+p-value: 0.73588 | FDR-adjusted p: 1.00000
+NOT SIGNIFICANT
+
+=== 5.1 : NB vs LR (bigrams) ===
+Acc1: 0.8500 | Acc2: 0.8063
+Contingency Table:
+   a (both correct): 119
+   b (Model1 correct only): 17
+   c (Model2 correct only): 10
+   d (both wrong): 14
+p-value: 0.24779 | FDR-adjusted p: 0.74337
+NOT SIGNIFICANT
+
+=== 5.2 : NB vs RF (unigrams) ===
+Acc1: 0.8250 | Acc2: 0.8250
+Contingency Table:
+   a (both correct): 117
+   b (Model1 correct only): 15
+   c (Model2 correct only): 15
+   d (both wrong): 13
+p-value: 1.00000 | FDR-adjusted p: 1.00000
+NOT SIGNIFICANT
+
+=== 5.2 : NB vs GB (unigrams) ===
+Acc1: 0.8250 | Acc2: 0.7438
+Contingency Table:
+   a (both correct): 100
+   b (Model1 correct only): 32
+   c (Model2 correct only): 19
+   d (both wrong): 9
+p-value: 0.09191 | FDR-adjusted p: 0.71653
+NOT SIGNIFICANT
+
+=== 5.2 : LR vs RF (unigrams) ===
+Acc1: 0.8063 | Acc2: 0.8250
+Contingency Table:
+   a (both correct): 116
+   b (Model1 correct only): 13
+   c (Model2 correct only): 16
+   d (both wrong): 15
+p-value: 0.71107 | FDR-adjusted p: 1.00000
+NOT SIGNIFICANT
+
+=== 5.2 : LR vs GB (unigrams) ===
+Acc1: 0.8063 | Acc2: 0.7438
+Contingency Table:
+   a (both correct): 105
+   b (Model1 correct only): 24
+   c (Model2 correct only): 14
+   d (both wrong): 17
+p-value: 0.14331 | FDR-adjusted p: 0.71653
+NOT SIGNIFICANT
+
+=== 5.2 : NB vs RF (bigrams) ===
+Acc1: 0.8500 | Acc2: 0.8250
+Contingency Table:
+   a (both correct): 120
+   b (Model1 correct only): 16
+   c (Model2 correct only): 12
+   d (both wrong): 12
+p-value: 0.57159 | FDR-adjusted p: 1.00000
+NOT SIGNIFICANT
+
+=== 5.2 : NB vs GB (bigrams) ===
+Acc1: 0.8500 | Acc2: 0.7937
+Contingency Table:
+   a (both correct): 112
+   b (Model1 correct only): 24
+   c (Model2 correct only): 15
+   d (both wrong): 9
+p-value: 0.19959 | FDR-adjusted p: 0.74337
+NOT SIGNIFICANT
+
+=== 5.2 : LR vs RF (bigrams) ===
+Acc1: 0.8063 | Acc2: 0.8250
+Contingency Table:
+   a (both correct): 113
+   b (Model1 correct only): 16
+   c (Model2 correct only): 19
+   d (both wrong): 12
+p-value: 0.73588 | FDR-adjusted p: 1.00000
+NOT SIGNIFICANT
+
+=== 5.2 : LR vs GB (bigrams) ===
+Acc1: 0.8063 | Acc2: 0.7937
+Contingency Table:
+   a (both correct): 110
+   b (Model1 correct only): 19
+   c (Model2 correct only): 17
+   d (both wrong): 14
+p-value: 0.86794 | FDR-adjusted p: 1.00000
+NOT SIGNIFICANT
+
+=== 5.3 : NB unigrams vs bigrams ===
+Acc1: 0.8250 | Acc2: 0.8500
+Contingency Table:
+   a (both correct): 126
+   b (Model1 correct only): 6
+   c (Model2 correct only): 10
+   d (both wrong): 18
+p-value: 0.45450 | FDR-adjusted p: 1.00000
+NOT SIGNIFICANT
+
+=== 5.3 : LR unigrams vs bigrams ===
+Acc1: 0.8063 | Acc2: 0.8063
+Contingency Table:
+   a (both correct): 124
+   b (Model1 correct only): 5
+   c (Model2 correct only): 5
+   d (both wrong): 26
+p-value: 1.00000 | FDR-adjusted p: 1.00000
+NOT SIGNIFICANT
+
+=== 5.3 : DT unigrams vs bigrams ===
+Acc1: 0.6750 | Acc2: 0.6500
+Contingency Table:
+   a (both correct): 87
+   b (Model1 correct only): 21
+   c (Model2 correct only): 17
+   d (both wrong): 35
+p-value: 0.62710 | FDR-adjusted p: 1.00000
+NOT SIGNIFICANT
+
+=== 5.3 : RF unigrams vs bigrams ===
+Acc1: 0.8250 | Acc2: 0.8250
+Contingency Table:
+   a (both correct): 121
+   b (Model1 correct only): 11
+   c (Model2 correct only): 11
+   d (both wrong): 17
+p-value: 1.00000 | FDR-adjusted p: 1.00000
+NOT SIGNIFICANT
+
+=== 5.3 : GB unigrams vs bigrams ===
+Acc1: 0.7438 | Acc2: 0.7937
+Contingency Table:
+   a (both correct): 113
+   b (Model1 correct only): 6
+   c (Model2 correct only): 14
+   d (both wrong): 27
+p-value: 0.11532 | FDR-adjusted p: 0.71653
+NOT SIGNIFICANT
