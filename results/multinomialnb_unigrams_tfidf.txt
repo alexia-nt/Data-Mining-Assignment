@@ -11,3 +11,19 @@ Classification Report:
     accuracy                           0.82       160
    macro avg       0.83      0.82      0.82       160
 weighted avg       0.83      0.82      0.82       160
+
+Top 5 DISCRIMINATIVE features pointing towards FAKE reviews:
+(Words much more common in deceptive reviews)
+- relax: ratio = 19.07x (P_fake=0.0007, P_genuine=0.0000)
+- settled: ratio = 14.47x (P_fake=0.0006, P_genuine=0.0000)
+- egg: ratio = 14.41x (P_fake=0.0006, P_genuine=0.0000)
+- originally: ratio = 14.29x (P_fake=0.0005, P_genuine=0.0000)
+- luxury: ratio = 14.19x (P_fake=0.0018, P_genuine=0.0001)
+
+Top 5 DISCRIMINATIVE features pointing towards GENUINE reviews:
+(Words much more common in truthful reviews)
+- priceline: ratio = 0.04x (P_fake=0.0000, P_genuine=0.0010)
+- sofa: ratio = 0.07x (P_fake=0.0000, P_genuine=0.0006)
+- fridge: ratio = 0.07x (P_fake=0.0000, P_genuine=0.0005)
+- season: ratio = 0.07x (P_fake=0.0000, P_genuine=0.0005)
+- stated: ratio = 0.07x (P_fake=0.0000, P_genuine=0.0005)

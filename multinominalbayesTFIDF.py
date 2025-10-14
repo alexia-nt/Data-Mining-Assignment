@@ -83,3 +83,64 @@ for ngram_range in ngram_ranges:
         f.write(class_report)
 
     print(f"Results saved to {file_path}")
+
+    # Replace your feature importance section with this:
+
+    # Extract feature names and importance for MultinomialNB
+    vec = best_pipeline.named_steps['tfidf']
+    nb = best_pipeline.named_steps['nb']
+
+    feature_names = np.array(vec.get_feature_names_out())
+    log_probs = nb.feature_log_prob_  # shape = (n_classes, n_features)
+    classes = nb.classes_
+
+    print(f"Class order: {classes}")
+
+    # Get indices for each class
+    deceptive_idx = np.where(classes == "Deceptive")[0][0]
+    truthful_idx = np.where(classes == "Truthful")[0][0]
+
+    # Calculate log ratio: log(P(feature|Deceptive) / P(feature|Truthful))
+    # Higher ratio = more indicative of DECEPTIVE reviews
+    # Lower ratio = more indicative of TRUTHFUL reviews
+    log_ratio = log_probs[deceptive_idx] - log_probs[truthful_idx]
+
+    # Top features for FAKE reviews (highest log ratio)
+    top_fake_idx = np.argsort(log_ratio)[-5:][::-1]
+
+    # Top features for GENUINE reviews (lowest log ratio)  
+    top_genuine_idx = np.argsort(log_ratio)[:5]
+
+    print("\nTop 5 DISCRIMINATIVE features pointing towards FAKE reviews:")
+    print("(Words much more common in deceptive reviews)")
+    for idx in top_fake_idx:
+        p_fake = np.exp(log_probs[deceptive_idx, idx])
+        p_genuine = np.exp(log_probs[truthful_idx, idx])
+        print(f"- {feature_names[idx]}: ratio = {np.exp(log_ratio[idx]):.2f}x "
+            f"(P_fake={p_fake:.4f}, P_genuine={p_genuine:.4f})")
+
+    print("\nTop 5 DISCRIMINATIVE features pointing towards GENUINE reviews:")
+    print("(Words much more common in truthful reviews)")
+    for idx in top_genuine_idx:
+        p_fake = np.exp(log_probs[deceptive_idx, idx])
+        p_genuine = np.exp(log_probs[truthful_idx, idx])
+        print(f"- {feature_names[idx]}: ratio = {np.exp(log_ratio[idx]):.2f}x "
+            f"(P_fake={p_fake:.4f}, P_genuine={p_genuine:.4f})")
+
+    # Save to file
+    with open(file_path, "a") as f:
+        f.write("\nTop 5 DISCRIMINATIVE features pointing towards FAKE reviews:\n")
+        f.write("(Words much more common in deceptive reviews)\n")
+        for idx in top_fake_idx:
+            p_fake = np.exp(log_probs[deceptive_idx, idx])
+            p_genuine = np.exp(log_probs[truthful_idx, idx])
+            f.write(f"- {feature_names[idx]}: ratio = {np.exp(log_ratio[idx]):.2f}x "
+                    f"(P_fake={p_fake:.4f}, P_genuine={p_genuine:.4f})\n")
+        
+        f.write("\nTop 5 DISCRIMINATIVE features pointing towards GENUINE reviews:\n")
+        f.write("(Words much more common in truthful reviews)\n")
+        for idx in top_genuine_idx:
+            p_fake = np.exp(log_probs[deceptive_idx, idx])
+            p_genuine = np.exp(log_probs[truthful_idx, idx])
+            f.write(f"- {feature_names[idx]}: ratio = {np.exp(log_ratio[idx]):.2f}x "
+                    f"(P_fake={p_fake:.4f}, P_genuine={p_genuine:.4f})\n")

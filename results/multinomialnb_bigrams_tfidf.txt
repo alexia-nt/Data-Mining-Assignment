@@ -11,3 +11,19 @@ Classification Report:
     accuracy                           0.85       160
    macro avg       0.85      0.85      0.85       160
 weighted avg       0.85      0.85      0.85       160
+
+Top 5 DISCRIMINATIVE features pointing towards FAKE reviews:
+(Words much more common in deceptive reviews)
+- chicago millennium: ratio = 24.69x (P_fake=0.0009, P_genuine=0.0000)
+- sheraton chicago: ratio = 22.23x (P_fake=0.0008, P_genuine=0.0000)
+- hotel tower: ratio = 18.93x (P_fake=0.0007, P_genuine=0.0000)
+- james chicago: ratio = 18.04x (P_fake=0.0007, P_genuine=0.0000)
+- millennium knickerbocker: ratio = 17.18x (P_fake=0.0006, P_genuine=0.0000)
+
+Top 5 DISCRIMINATIVE features pointing towards GENUINE reviews:
+(Words much more common in truthful reviews)
+- priceline: ratio = 0.04x (P_fake=0.0000, P_genuine=0.0009)
+- booked hotel: ratio = 0.06x (P_fake=0.0000, P_genuine=0.0006)
+- sofa: ratio = 0.07x (P_fake=0.0000, P_genuine=0.0005)
+- season: ratio = 0.07x (P_fake=0.0000, P_genuine=0.0005)
+- four season: ratio = 0.07x (P_fake=0.0000, P_genuine=0.0005)
