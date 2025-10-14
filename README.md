@@ -1,4 +1,4 @@
-# Opinion Spam Detection – Data Mining 2025
+# Opinion Spam Detection - Data Mining 2025
 
 This project implements several machine learning models for classifying hotel reviews as **truthful** or **deceptive**, based on [this dataset](https://myleott.com/op-spam.html).
 
@@ -54,11 +54,19 @@ Run `preprocessing.py`:
 - Saves preprocessed data as `train_preprocessed.pkl` and `test_preprocessed.pkl`
 
 ### 3. Experimentation and model training
-Run `naive_bayes.py`, `logistic_regression.py`, `classification_tree.py`, `random_forest.py`, `gradient_boosting.py`:
-- Each script:
-  - Loads `train_preprocessed.pkl`
-  - Performs TF-IDF vectorization (unigrams / bigrams)
-  - Runs cross-validation on training folds
-  - Evaluates performance
-  - Trains on full training set and evaluates on the external test fold
-  - Saves final model results
+For each model, there are separate scripts depending on the feature representation: **TF-IDF** or **Bag-of-Words (BoW)**.
+| Model                   | TF-IDF Script                      | BoW Script                       |
+| ----------------------- | ---------------------------------- | -------------------------------- |
+| Multinomial Naive Bayes | `multinomial_naive_bayes_tfidf.py` | `multinomial_naive_bayes_bow.py` |
+| Logistic Regression     | `logistic_regression_tfidf.py`     | `logistic_regression_bow.py`     |
+| Classification Tree     | `classification_tree_tfidf.py`     | `classification_tree_bow.py`     |
+| Random Forest           | `random_forest_tfidf.py`           | `random_forest_bow.py`           |
+| Gradient Boosting       | `gradient_boosting_tfidf.py`       | `gradient_boosting_bow.py`       |
+
+Each script performs the following steps:
+- Loads train_preprocessed.pkl.
+- Performs feature extraction (TF-IDF or BoW) with unigrams and bigrams.
+- Runs cross-validation on the training folds.
+- Evaluates performance on validation data.
+- Trains on the full training set and evaluates on the external test set.
+- Saves predictions, confusion matrices, and a detailed classification report.
