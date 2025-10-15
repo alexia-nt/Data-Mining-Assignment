@@ -1,26 +1,27 @@
-Best C: 100.0
-Test set accuracy: 0.8063
+Best C: 10.0
+Mean CV accuracy (5-fold): 0.8234
+Test set accuracy: 0.8250
 
 Classification Report:
               precision    recall  f1-score   support
 
-   Deceptive       0.81      0.80      0.81        80
-    Truthful       0.80      0.81      0.81        80
+   Deceptive       0.85      0.79      0.82        80
+    Truthful       0.80      0.86      0.83        80
 
-    accuracy                           0.81       160
-   macro avg       0.81      0.81      0.81       160
-weighted avg       0.81      0.81      0.81       160
+    accuracy                           0.82       160
+   macro avg       0.83      0.82      0.82       160
+weighted avg       0.83      0.82      0.82       160
 
 The five most important terms pointing towards a fake review:
-- chicago: -44.1418
-- relax: -35.8648
-- homewood suite: -34.0342
-- turned: -28.9818
-- hotel chicago: -28.7731
+- chicago: -26.4863
+- relax: -17.4281
+- homewood suite: -15.3310
+- turned: -15.2472
+- hotel chicago: -15.2141
 
 The five most important terms pointing towards a genuine review:
-- star: 34.7362
-- booked hotel: 33.8177
-- bring: 29.5979
-- adult: 27.8939
-- street: 24.8522
+- star: 18.0724
+- booked hotel: 17.2052
+- adult: 15.3691
+- elevator: 13.9929
+- location: 12.3243

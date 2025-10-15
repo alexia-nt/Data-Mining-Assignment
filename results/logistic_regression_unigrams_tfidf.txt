@@ -1,26 +1,27 @@
 Best C: 100.0
-Test set accuracy: 0.8063
+Mean CV accuracy (5-fold): 0.8047
+Test set accuracy: 0.8000
 
 Classification Report:
               precision    recall  f1-score   support
 
-   Deceptive       0.85      0.75      0.79        80
-    Truthful       0.78      0.86      0.82        80
+   Deceptive       0.83      0.75      0.79        80
+    Truthful       0.77      0.85      0.81        80
 
-    accuracy                           0.81       160
-   macro avg       0.81      0.81      0.81       160
-weighted avg       0.81      0.81      0.81       160
+    accuracy                           0.80       160
+   macro avg       0.80      0.80      0.80       160
+weighted avg       0.80      0.80      0.80       160
 
 The five most important terms pointing towards a fake review:
-- chicago: -52.6544
-- smelled: -28.5012
-- turned: -28.2932
-- recently: -26.8151
-- relax: -25.4186
+- chicago: -52.4534
+- turned: -27.6678
+- smelled: -27.6425
+- recently: -26.5458
+- relax: -25.0329
 
 The five most important terms pointing towards a genuine review:
-- star: 32.1791
-- adult: 25.5095
-- world: 25.2989
-- clothing: 24.5754
-- location: 21.2477
+- star: 32.3197
+- adult: 26.5508
+- world: 25.7308
+- clothing: 25.1779
+- location: 21.4243

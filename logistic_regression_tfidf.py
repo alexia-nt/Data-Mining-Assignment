@@ -45,7 +45,21 @@ for ngram_range in ngram_ranges:
 
     pipeline.fit(X_train, y_train)
     best_C = float(np.ravel(pipeline.named_steps['lr'].C_)[0])
-    print(f"Best C found: {best_C}")
+    
+    # Extract fitted LogisticRegressionCV model
+    lr = pipeline.named_steps['lr']
+
+    # Best C value from cross-validation
+    best_C = float(np.ravel(lr.C_)[0])
+
+    # Extract scores for the positive class (since binary)
+    scores = lr.scores_[lr.classes_[1]]  # shape: (n_folds, len(C_GRID))
+    mean_cv_scores = scores.mean(axis=0)  # average CV accuracy for each C
+
+    # Find the mean CV accuracy for the chosen C
+    best_cv_accuracy = mean_cv_scores[list(lr.Cs_).index(best_C)]
+
+    print(f"Best C: {best_C}, Mean CV Accuracy: {best_cv_accuracy:.4f}")
 
     y_pred = pipeline.predict(X_test)
     test_accuracy = accuracy_score(y_test, y_pred)
@@ -76,6 +90,7 @@ for ngram_range in ngram_ranges:
     file_path = os.path.join(RESULTS_DIR, file_name)
     with open(file_path, "w") as f:
         f.write(f"Best C: {best_C}\n")
+        f.write(f"Mean CV accuracy (5-fold): {best_cv_accuracy:.4f}\n")
         f.write(f"Test set accuracy: {test_accuracy:.4f}\n")
         f.write("\nClassification Report:\n")
         f.write(class_report)
